@@ -1,0 +1,42 @@
+* Database Structure
+** Scraper
+- url
+- scraped_at
+
+** Domain
+- name
+
+** Organization
+- name
+- description
+- domain_id
+- address
+- size
+- founded_at
+- type
+- industry
+- revenue
+
+** Competitor
+- name
+
+** Organization Competitor
+- organization_id
+- competitor_id
+
+** Location
+- state
+
+** Job
+- title
+- created_at
+- description
+- company_id
+- Location_id
+
+** Review
+- date
+- summary
+- job_id
+- author_info
+- review
