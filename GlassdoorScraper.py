@@ -194,7 +194,7 @@ class GlassdoorScraper:
             organization = None
             job_source = None
             job_title = None
-            reviews = None
+            reviews = []
 
             script = soup.find('script').text
             parser = Parser()
@@ -254,8 +254,6 @@ class GlassdoorScraper:
 
             for link in links:
                 job_info = None
-                if link == 'https://www.glassdoor.co.in/Job/chandigarh-jobs-SRCH_IL.0,10_IC2879615.htm':
-                    continue
                 soup = self.make_soup(link)
 
                 if soup.select_one('.empBasicInfo'):
