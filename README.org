@@ -10,33 +10,37 @@
 - name
 - description
 - domain_id
-- address
+- headquarters_address
 - size
 - founded_at
 - type
 - industry
 - revenue
-
-** Competitor
-- name
-
-** Organization Competitor
-- organization_id
-- competitor_id
+- competitors
 
 ** Location
+- country
 - state
+- city
 
 ** Job
+- source
 - title
 - created_at
 - description
-- company_id
+- organization_id
 - Location_id
 
+** AuthorJob
+- job
+
+** AuthorLocation
+- location
+
 ** Review
-- date
+- review_at
 - summary
-- job_id
-- author_info
+- organization_id
+- author_job_id
+- author_location_id
 - review
