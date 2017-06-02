@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from models import (Domain, Organization, Location, Job,
                     AuthorJob, AuthorLocation, Review)
 
@@ -8,12 +9,16 @@ def unduplicate(session, table, data={}):
     result = None
 
     if table_name == 'organization':
-        result = query.filter_by(
-            name=data['name'], domain=data['domain'],
-            headquarters_address=data['headquarters_address']).first()
+        if not data.get('domain').name:
+            result = query.filter(table.name == data.get('name')).first()
+        else:
+            result = query.filter(table.name == data.get('name'),
+                                  table.domain == data.get('domain')).first()
 
     if table_name == 'job':
-        result = query.filter_by(source=data['source']).first()
+        path = urlparse(data.get('source')).path
+        result = query.filter(table.source.like('%' + path + '%'),
+                              table.organization == data.get('organization')).first()
     else:
         result = query.filter_by(**data).first()
 
