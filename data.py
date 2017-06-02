@@ -15,4 +15,5 @@ class JobInfo():
         self.reviews = reviews
 
     def __repr__(self):
-        return "<organization: {}>" .format(self.organization)
+        return "<job_title: {}, organization: {}>"\
+            .format(self.job_title, self.organization)
