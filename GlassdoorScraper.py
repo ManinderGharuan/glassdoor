@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from requests import get
 from random import choice
-from json import loads
+from json import loads, JSONDecodeError
 from urllib.parse import urljoin, urlparse
 from slimit import ast
 from slimit.parser import Parser
@@ -240,7 +240,6 @@ class GlassdoorScraper:
                            job_desc, reviews)
         except Exception as error:
             print("Cannot extract job information: ", error)
-            raise Exception(error)
 
     def parse(self):
         scraper_session = get_scraper_session()
@@ -253,17 +252,26 @@ class GlassdoorScraper:
                 self.done_rescrapables = True
 
             for link in links:
+                item_link = False
                 job_info = None
-                soup = self.make_soup(link)
+
+                try:
+                    soup = self.make_soup(link)
+                except Exception:
+                    continue
 
                 if soup.select_one('.empBasicInfo'):
                     try:
                         if soup.find('script', type="application/ld+json"):
                             loads(soup.find(
                                 'script', type="application/ld+json").text)
-                    except ValueError:
-                        job_info = self.extract_job_info(soup, link)
-                        self.jobs_info.append(job_info)
+                    except JSONDecodeError:
+                        item_link = True
+                        pass
+
+                if item_link:
+                    job_info = self.extract_job_info(soup, link)
+                    self.jobs_info.append(job_info)
 
                 next_links = self.extract_next_links(soup, link)
 
