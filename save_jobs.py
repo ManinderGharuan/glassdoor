@@ -14,8 +14,7 @@ def unduplicate(session, table, data={}):
         else:
             result = query.filter(table.name == data.get('name'),
                                   table.domain == data.get('domain')).first()
-
-    if table_name == 'job':
+    elif table_name == 'job':
         path = urlparse(data.get('source')).path
         result = query.filter(table.source.like('%' + path + '%'),
                               table.organization == data.get('organization')).first()
