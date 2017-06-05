@@ -8,8 +8,9 @@ def scrap():
     """
     Run scraper and save job_info in database
     """
+    session = get_session()
+
     try:
-        session = get_session()
         g = GlassdoorScraper()
 
         for info in g.parse():
