@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from GlassdoorScraper import GlassdoorScraper
+from scrapers.GlassdoorScraper import GlassdoorScraper
 from db import get_session
 from save_jobs import save_jobs_in_database
 

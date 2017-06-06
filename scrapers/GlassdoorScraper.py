@@ -6,7 +6,7 @@ from slimit.parser import Parser
 from slimit.visitors import nodevisitor
 from dateutil.parser import parse
 from db import get_scraper_session
-from data import JobInfo
+from scrapers.data import JobInfo
 
 
 class GlassdoorScraper(RootScraper):
