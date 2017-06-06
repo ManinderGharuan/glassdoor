@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from requests import get
 from random import choice
 from datetime import datetime
+from urllib.parse import urljoin, urlparse
 from models import Scraper
 
 user_agents = [
@@ -32,6 +33,24 @@ class RootScraper():
 
         return BeautifulSoup(get(url, headers=header).
                              content, 'html5lib')
+
+    def extract_next_links(self, soup, base_url):
+        """
+        Returns links to scrap next from the soup
+        """
+        try:
+            next_links = []
+
+            for a in soup.select('a'):
+                if a.get('href'):
+                    link = urljoin(base_url, a.get('href'))
+
+                    if urlparse(link).hostname in self.whitelist:
+                        next_links.append(dict(url=link))
+
+            return next_links
+        except Exception as error:
+            print("Exception in extracting next links: ", error)
 
     def get_next_links(self, session):
         """

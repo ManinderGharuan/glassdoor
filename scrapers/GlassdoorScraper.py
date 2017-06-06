@@ -1,6 +1,6 @@
 from Scrapers.RootScraper import RootScraper
 from json import loads, JSONDecodeError
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 from slimit import ast
 from slimit.parser import Parser
 from slimit.visitors import nodevisitor
@@ -15,24 +15,6 @@ class GlassdoorScraper(RootScraper):
         self.done_rescrapables = False
         self.whitelist = ['www.glassdoor.com', 'www.glassdoor.co.in']
         self.company_info_url = "https://www.glassdoor.co.in/Overview/companyOverviewBasicInfoAjax.htm?&employerId={0}&title=Company+Info&linkCompetitors=true"
-
-    def extract_next_links(self, soup, base_url):
-        """
-        Returns links to scrap next from the soup
-        """
-        try:
-            next_links = []
-
-            for a in soup.select('a'):
-                if a.get('href'):
-                    link = urljoin(base_url, a.get('href'))
-
-                    if urlparse(link).hostname in self.whitelist:
-                        next_links.append(dict(url=link))
-
-            return next_links
-        except Exception as error:
-            print("Exception in extracting next links: ", error)
 
     def _extract_employe(self, employe_id):
         org_domain = None
