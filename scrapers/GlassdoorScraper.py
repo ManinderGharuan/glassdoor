@@ -1,4 +1,4 @@
-from Scrapers.RootScraper import RootScraper
+from scrapers.RootScraper import RootScraper
 from json import loads, JSONDecodeError
 from urllib.parse import urljoin
 from slimit import ast
