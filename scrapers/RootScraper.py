@@ -19,9 +19,6 @@ user_agents = [
 
 
 class RootScraper():
-    def __init__(self):
-        self.jobs_info = []
-
     def make_soup(self, url):
         """
         Takes a url, and return BeautifulSoup for that Url
@@ -58,9 +55,12 @@ class RootScraper():
         """
         try:
             while True:
-                urls = session.query(Scraper.url) \
-                              .filter(Scraper.scraped_at == None) \
-                              .limit(50).all()
+                urls = []
+                for i in self.whitelist:
+                    urls += session.query(Scraper.url) \
+                                  .filter(Scraper.scraped_at == None,
+                                          Scraper.url.like('%' + i + '%')) \
+                                  .limit(50).all()
 
                 for url in urls:
                     yield url[0]
