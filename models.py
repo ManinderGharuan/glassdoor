@@ -56,9 +56,28 @@ class Job(Base):
     description = Column(Text)
     organization_id = Column(Integer, ForeignKey('organization.id'))
     location_id = Column(Integer, ForeignKey('location.id'))
+    last_date = Column(DateTime)
 
     organization = relationship(Organization)
     location = relationship(Location)
+
+
+class Qualification(Base):
+    __tablename__ = 'qualification'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20))
+
+
+class JobQualification(Base):
+    __tablename__ = 'job_qualification'
+
+    id = Column(Integer, primary_key=True)
+    job_id = Column(Integer, ForeignKey('job.id'))
+    qualification_id = Column(Integer, ForeignKey('qualification.id'))
+
+    job = relationship(Job)
+    qualification = relationship(Qualification)
 
 
 class AuthorJob(Base):

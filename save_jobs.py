@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
-from models import (Domain, Organization, Location, Job,
-                    AuthorJob, AuthorLocation, Review)
+from models import (Domain, Organization, Location, Job, Qualification,
+                    JobQualification, AuthorJob, AuthorLocation, Review)
 
 
 def unduplicate(session, table, data={}):
@@ -58,8 +58,16 @@ def save_jobs_in_database(session, job_info):
                         created_at=job_info.job_created_at,
                         description=job_info.job_desc,
                         organization=organization,
-                        location=location)
-        unduplicate(session, Job, job_data)
+                        location=location,
+                        last_date=job_info.last_date)
+        job = unduplicate(session, Job, job_data)
+
+        for qualification in job_info.qulifications:
+            qualification_data = dict(name=qualification)
+            qual = unduplicate(session, Qualification, qualification_data)
+
+            job_qualification_data = dict(job=job, qualification=qual)
+            unduplicate(session, JobQualification, job_qualification_data)
 
         for review in reviews:
             author_job_data = dict(job=review.get('author_job'))
