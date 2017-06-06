@@ -17,7 +17,7 @@ user_agents = [
 ]
 
 
-class RootScrpaer():
+class RootScraper():
     def __init__(self):
         self.jobs_info = []
 
