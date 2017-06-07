@@ -11,16 +11,16 @@ def run_scrapers():
     """
     session = get_session()
 
-    # try:
-    #     g = GlassdoorScraper()
+    try:
+        g = GlassdoorScraper()
 
-    #     for info in g.parse():
-    #         if info:
-    #             print("Got a job: ", info)
-    #             print("******" * 13)
-    #             save_jobs_in_database(session, info)
-    # except Exception as error:
-    #     print('Exception in GlassdoorScraper: ', error)
+        for info in g.parse():
+            if info:
+                print("Got a job: ", info)
+                print("******" * 13)
+                save_jobs_in_database(session, info)
+    except Exception as error:
+        print('Exception in GlassdoorScraper: ', error)
 
     try:
         f = FreshersworldScraper()
