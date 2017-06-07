@@ -39,8 +39,10 @@ class FreshersworldScraper(RootScraper):
                 q = job.select_one('.qualifications').text.strip()
                 qualifications = [i.strip() for i in q.split(',')]
 
-            if job.select_one('.padding-left-4'):
-                last_date = job.select_one('.padding-left-4').text.strip()
+            job_apply_container = job.select_one('.view-apply-container')
+
+            if job.select_one('.last-date'):
+                last_date = job_apply_container.select_one('.padding-left-4').text.strip()
                 last_date = parse(last_date, fuzzy=True)
 
             if job.find('span', itemprop='datePosted'):
