@@ -22,6 +22,7 @@ class FreshersworldScraper(RootScraper):
         job_created_at = None
         job_desc = None
         last_date = None
+        org_domain = None
         qualifications = []
         reviews = []
 
@@ -57,8 +58,12 @@ class FreshersworldScraper(RootScraper):
 
             if job.select_one('.company-desc-det'):
                 org_desc = job.select_one('.company-desc-det').text.strip()
+                company_weblink = job.select_one('.company-desc-det').select_one('.company-weblink')
 
-        org_fields = dict(org_desc=org_desc)
+                if company_weblink:
+                    org_domain = company_weblink.find('a').get('href')
+
+        org_fields = dict(org_domain=org_domain, org_desc=org_desc)
 
         return JobInfo(org_fields, organization, country, state, city,
                        job_source, job_title, job_created_at, job_desc,
