@@ -75,6 +75,7 @@ class RootScraper():
             if not dup:
                 link = Scraper(**url)
                 session.add(link)
+                session.commit()
 
     def onsuccess(self, session, link):
         scraper = session.query(Scraper).filter_by(url=link).first()
