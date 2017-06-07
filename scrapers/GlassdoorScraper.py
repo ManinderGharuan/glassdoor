@@ -190,7 +190,6 @@ class GlassdoorScraper(RootScraper):
 
                 if item_link:
                     job_info = self.extract_job_info(soup, link)
-                    self.jobs_info.append(job_info)
 
                 next_links = self.extract_next_links(soup, link)
 
