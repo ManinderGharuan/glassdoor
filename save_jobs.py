@@ -12,17 +12,38 @@ def unduplicate(session, table, data={}):
         result = query.filter(table.name == data.get('name')).first()
 
         if result:
-            result.name = data.get('name')
-            result.description = data.get('description')
-            result.domain_id = data.get('domain').id
-            result.headquarters_address = data.get('headquarters_address')
-            result.size = data.get('size')
-            result.founded_at = data.get('founded_at')
-            result.type = data.get('type')
-            result.industry = data.get('industry')
-            result.revenue = data.get('revenue')
-            result.competitors = data.get('competitors')
-            result.logo_url = data.get('logo_url')
+            if not result.name and data.get('name'):
+                result.name = data.get('name')
+
+            if not result.description and data.get('description'):
+                result.description = data.get('description')
+
+            if not result.domain_id and data.get('domain').id:
+                result.domain_id = data.get('domain').id
+
+            if not result.headquarters_address and data.get('headquarters_address'):
+                result.headquarters_address = data.get('headquarters_address')
+
+            if not result.size and data.get('size'):
+                result.size = data.get('size')
+
+            if not result.founded_at and data.get('founded_at'):
+                result.founded_at = data.get('founded_at')
+
+            if not result.type and data.get('type'):
+                result.type = data.get('type')
+
+            if not result.industry and data.get('industry'):
+                result.industry = data.get('industry')
+
+            if not result.revenue and data.get('revenue'):
+                result.revenue = data.get('revenue')
+
+            if not result.competitors and data.get('competitors'):
+                result.competitors = data.get('competitors')
+
+            if not result.logo_url and data.get('logo_url'):
+                result.logo_url = data.get('logo_url')
     elif table_name == 'job':
         path = urlparse(data.get('source')).path
         result = query.filter(table.source.like('%' + path + '%'),
@@ -59,18 +80,19 @@ def save_jobs_in_database(session, job_info):
                         logo_url=org_fields.get('org_logo'))
         organization = unduplicate(session, Organization, org_data)
 
-        location_data = dict(country=job_info.country, state=job_info.state,
-                             city=job_info.city)
-        location = unduplicate(session, Location, location_data)
+        if job_info.job_source:
+            location_data = dict(country=job_info.country, state=job_info.state,
+                                 city=job_info.city)
+            location = unduplicate(session, Location, location_data)
 
-        job_data = dict(source=job_info.job_source,
-                        title=job_info.job_title,
-                        created_at=job_info.job_created_at,
-                        description=job_info.job_desc,
-                        organization=organization,
-                        location=location,
-                        last_date=job_info.last_date)
-        job = unduplicate(session, Job, job_data)
+            job_data = dict(source=job_info.job_source,
+                            title=job_info.job_title,
+                            created_at=job_info.job_created_at,
+                            description=job_info.job_desc,
+                            organization=organization,
+                            location=location,
+                            last_date=job_info.last_date)
+            job = unduplicate(session, Job, job_data)
 
         for qualification in job_info.qulifications:
             qualification_data = dict(name=qualification)
