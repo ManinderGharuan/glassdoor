@@ -33,6 +33,7 @@ class Organization(Base):
     industry = Column(String(100))
     revenue = Column(String(100))
     competitors = Column(String(500))
+    logo_url = Column(String(200))
 
     domain = relationship(Domain)
 
