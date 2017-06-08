@@ -2,7 +2,7 @@ class JobInfo():
     """Represents a single job info extracted by scraper"""
     def __init__(self, org_fields={}, country=None, state=None, city=None,
                  job_source=None, job_title=None, job_created_at=None,
-                 job_desc=None, reviews=None, last_date=None,
+                 job_desc=None, reviews=[], last_date=None,
                  qualifications=[]):
         self.org_fields = org_fields
         self.country = country
