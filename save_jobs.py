@@ -9,11 +9,20 @@ def unduplicate(session, table, data={}):
     result = None
 
     if table_name == 'organization':
-        if not data.get('domain').name:
-            result = query.filter(table.name == data.get('name')).first()
-        else:
-            result = query.filter(table.name == data.get('name'),
-                                  table.domain == data.get('domain')).first()
+        result = query.filter(table.name == data.get('name')).first()
+
+        if result:
+            result.name = data.get('name')
+            result.description = data.get('description')
+            result.domain_id = data.get('domain').id
+            result.headquarters_address = data.get('headquarters_address')
+            result.size = data.get('size')
+            result.founded_at = data.get('founded_at')
+            result.type = data.get('type')
+            result.industry = data.get('industry')
+            result.revenue = data.get('revenue')
+            result.competitors = data.get('competitors')
+            result.logo_url = data.get('logo_url')
     elif table_name == 'job':
         path = urlparse(data.get('source')).path
         result = query.filter(table.source.like('%' + path + '%'),
@@ -36,7 +45,7 @@ def save_jobs_in_database(session, job_info):
         domain_data = dict(name=org_fields.get('org_domain'))
         domain = unduplicate(session, Domain, domain_data)
 
-        org_data = dict(name=job_info.organization,
+        org_data = dict(name=org_fields.get('organization'),
                         description=org_fields.get('org_desc'),
                         domain=domain,
                         headquarters_address=org_fields.get(
@@ -46,7 +55,8 @@ def save_jobs_in_database(session, job_info):
                         type=org_fields.get('org_type'),
                         industry=org_fields.get('industry'),
                         revenue=org_fields.get('revenue'),
-                        competitors=org_fields.get('competitors'))
+                        competitors=org_fields.get('competitors'),
+                        logo_url=org_fields.get('org_logo'))
         organization = unduplicate(session, Organization, org_data)
 
         location_data = dict(country=job_info.country, state=job_info.state,
