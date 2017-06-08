@@ -16,7 +16,7 @@ class GlassdoorScraper(RootScraper):
         self.whitelist = ['www.glassdoor.com', 'www.glassdoor.co.in']
         self.company_info_url = "https://www.glassdoor.co.in/Overview/companyOverviewBasicInfoAjax.htm?&employerId={0}&title=Company+Info&linkCompetitors=true"
 
-    def _extract_employe(self, employe_id):
+    def extract_employe(self, soup):
         org_domain = None
         org_desc = ''
         headquarters_address = None
@@ -26,8 +26,6 @@ class GlassdoorScraper(RootScraper):
         industry = None
         revenue = None
         competitors = None
-
-        soup = self.make_soup(self.company_info_url .format(employe_id))
 
         for row in soup.select('.infoEntity'):
             if row.find('label').text.lower() == 'website':
@@ -67,11 +65,20 @@ class GlassdoorScraper(RootScraper):
 
         org_desc = org_desc if org_desc != '' else None
 
-        return dict(org_domain=org_domain, org_desc=org_desc,
-                    headquarters_address=headquarters_address, size=size,
-                    founded_at=founded_at, org_type=org_type,
-                    industry=industry, revenue=revenue,
-                    competitors=competitors)
+        if soup.select_one('.logoOverlay'):
+            org_logo = soup.select_one('.logoOverlay').find('img').get('src')
+
+        if soup.select_one('.tightAll'):
+            organization = soup.select('.tightAll').text.strip()
+
+        org_fields = dict(organization=organization, org_domain=org_domain,
+                          org_desc=org_desc, org_logo=org_logo,
+                          headquarters_address=headquarters_address, size=size,
+                          founded_at=founded_at, org_type=org_type,
+                          industry=industry, revenue=revenue,
+                          competitors=competitors)
+
+        return JobInfo(org_fields)
 
     def _extract_reviews(self, review_link, base_url):
         reviews = []
@@ -113,24 +120,10 @@ class GlassdoorScraper(RootScraper):
             organization = None
             job_source = None
             job_title = None
+            country = None
+            state = None
+            city = None
             reviews = []
-
-            script = soup.find('script').text
-            parser = Parser()
-            tree = parser.parse(script)
-            fields = {
-                getattr(
-                    node.left, 'value', ''): getattr(node.right, 'value', '')
-                for node in nodevisitor.visit(tree)
-                if isinstance(node, ast.Assign)
-            }
-            country = fields.get("'country'").replace('"', "")
-            country = country if country != '' else None
-            state = fields.get("'state'").replace('"', "")
-            state = state if state != '' else None
-            city = fields.get("'city'").replace('"', "")
-            city = city if city != '' else None
-            job_source = fields.get("'untranslatedUrl'").replace('"', "")
 
             job_desc = soup.select_one('.jobDescriptionContent').text.strip(
             ) if soup.select_one('.jobDescriptionContent') else None
@@ -146,17 +139,20 @@ class GlassdoorScraper(RootScraper):
                 job_created_at = None
 
             organization = content.get('hiringOrganization').get('name')
-            employe_id = soup.select_one('.empBasicInfo').get('data-emp-id')
-            org_fields = self._extract_employe(employe_id)
+            org_logo = content.get('image')
+            last_date = content.get('validThrough')
+            city = content.get('addressLocality')
 
             if soup.select_one('.padBot'):
                 review_link = urljoin(
                     base_url, soup.select_one('.padBot').get('href'))
                 reviews = self._extract_reviews(review_link, base_url)
 
-            return JobInfo(org_fields, organization, country, state,
-                           city, job_source, job_title, job_created_at,
-                           job_desc, reviews)
+            org_fields = dict(organization=organization, org_logo=org_logo)
+
+            return JobInfo(org_fields, country, state, city, job_source,
+                           job_title, job_created_at, job_desc, reviews,
+                           last_date)
         except Exception as error:
             print("Cannot extract job information: ", error)
 
@@ -171,7 +167,6 @@ class GlassdoorScraper(RootScraper):
                 self.done_rescrapables = True
 
             for link in links:
-                item_link = False
                 job_info = None
 
                 try:
@@ -179,17 +174,12 @@ class GlassdoorScraper(RootScraper):
                 except Exception:
                     continue
 
-                if soup.select_one('.empBasicInfo'):
-                    try:
-                        if soup.find('script', type="application/ld+json"):
-                            loads(soup.find(
-                                'script', type="application/ld+json").text)
-                    except JSONDecodeError:
-                        item_link = True
-                        pass
-
-                if item_link:
+                if soup.select_one('#JobDescContainer'):
                     job_info = self.extract_job_info(soup, link)
+
+                if soup.select_one('.empBasicInfo'):
+                    if soup.select_one('.empBasicInfo').select('.infoEntity'):
+                        job_info = self.extract_employe(soup)
 
                 next_links = self.extract_next_links(soup, link)
 
