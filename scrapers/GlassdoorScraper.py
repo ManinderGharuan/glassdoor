@@ -8,7 +8,7 @@ from scrapers.data import JobInfo
 
 class GlassdoorScraper(RootScraper):
     def __init__(self):
-        self.rescrapables = ['https://www.glassdoor.co.in/Job/chandigarh-jobs-SRCH_IL.0,10_IC2879615.htm']
+        self.rescrapables = ['https://www.glassdoor.co.in/Reviews/chandigarh-reviews-SRCH_IL.0,10_IC2879615.htm']
         self.done_rescrapables = False
         self.whitelist = ['www.glassdoor.com', 'www.glassdoor.co.in']
 
