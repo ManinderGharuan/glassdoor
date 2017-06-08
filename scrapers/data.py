@@ -18,4 +18,4 @@ class JobInfo():
 
     def __repr__(self):
         return "<job_title: {}, organization: {}>"\
-            .format(self.job_title, self.org_fileds.get('organization'))
+            .format(self.job_title, self.org_fields.get('organization'))
