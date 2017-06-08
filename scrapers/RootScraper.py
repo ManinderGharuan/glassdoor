@@ -69,8 +69,9 @@ class RootScraper():
 
     def scrap_in_future(self, session, urls):
         for url in urls:
+            path = urlparse(url['url']).path
             dup = session.query(Scraper).filter(
-                Scraper.url.like('%' + url['url'] + '%')).first()
+                Scraper.url.like('%' + path + '%')).first()
 
             if not dup:
                 link = Scraper(**url)
