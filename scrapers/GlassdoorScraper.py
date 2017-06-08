@@ -1,9 +1,6 @@
 from scrapers.RootScraper import RootScraper
-from json import loads, JSONDecodeError
+from json import loads
 from urllib.parse import urljoin
-from slimit import ast
-from slimit.parser import Parser
-from slimit.visitors import nodevisitor
 from dateutil.parser import parse
 from db import get_scraper_session
 from scrapers.data import JobInfo
@@ -14,7 +11,6 @@ class GlassdoorScraper(RootScraper):
         self.rescrapables = ['https://www.glassdoor.co.in/Job/chandigarh-jobs-SRCH_IL.0,10_IC2879615.htm']
         self.done_rescrapables = False
         self.whitelist = ['www.glassdoor.com', 'www.glassdoor.co.in']
-        self.company_info_url = "https://www.glassdoor.co.in/Overview/companyOverviewBasicInfoAjax.htm?&employerId={0}&title=Company+Info&linkCompetitors=true"
 
     def extract_employe(self, soup):
         org_domain = None
