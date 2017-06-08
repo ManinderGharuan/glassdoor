@@ -65,7 +65,7 @@ class GlassdoorScraper(RootScraper):
             org_logo = soup.select_one('.logoOverlay').find('img').get('src')
 
         if soup.select_one('.tightAll'):
-            organization = soup.select('.tightAll').text.strip()
+            organization = soup.select_one('.tightAll').text.strip()
 
         org_fields = dict(organization=organization, org_domain=org_domain,
                           org_desc=org_desc, org_logo=org_logo,
@@ -134,9 +134,13 @@ class GlassdoorScraper(RootScraper):
             except ValueError:
                 job_created_at = None
 
+            try:
+                last_date = parse(content.get('validThrough'), fuzzy=True)
+            except ValueError:
+                last_date = None
+
             organization = content.get('hiringOrganization').get('name')
             org_logo = content.get('image')
-            last_date = content.get('validThrough')
             city = content.get('addressLocality')
 
             if soup.select_one('.padBot'):
