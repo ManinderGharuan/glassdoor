@@ -22,6 +22,7 @@ class GlassdoorScraper(RootScraper):
         industry = None
         revenue = None
         competitors = None
+        org_logo = None
 
         for row in soup.select('.infoEntity'):
             if row.find('label').text.lower() == 'website':
@@ -61,7 +62,7 @@ class GlassdoorScraper(RootScraper):
 
         org_desc = org_desc if org_desc != '' else None
 
-        if soup.select_one('.logoOverlay'):
+        if soup.select_one('.logoOverlay').find('img'):
             org_logo = soup.select_one('.logoOverlay').find('img').get('src')
 
         if soup.select_one('.tightAll'):
