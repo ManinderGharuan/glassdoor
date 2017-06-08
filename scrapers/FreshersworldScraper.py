@@ -63,9 +63,14 @@ class FreshersworldScraper(RootScraper):
                 if company_weblink:
                     org_domain = company_weblink.find('a').get('href')
 
-        org_fields = dict(org_domain=org_domain, org_desc=org_desc)
+            if job.select_one('.detail-company-logo-first-level'):
+                org_logo = job.select_one(
+                    '.detail-company-logo-first-level').find('img').get('src')
 
-        return JobInfo(org_fields, organization, country, state, city,
+        org_fields = dict(org_domain=org_domain, org_desc=org_desc,
+                          organization=organization, org_logo=org_logo)
+
+        return JobInfo(org_fields, country, state, city,
                        job_source, job_title, job_created_at, job_desc,
                        reviews, last_date, qualifications)
 
