@@ -2,7 +2,7 @@ from scrapers.RootScraper import RootScraper
 from json import loads
 from urllib.parse import urljoin
 from dateutil.parser import parse
-from db import get_scraper_session
+from web.db import get_scraper_session
 from scrapers.data import JobInfo
 
 

@@ -1,0 +1,57 @@
+{% block companies %}
+<div class="companies">
+  <div class="company-items">
+    {% for org in orgs %}
+    <a href="/{{org.id}}" class="org-head-link">
+        <div class="items">
+          <div class="org-logo">
+            <img src="{{ org.logo_url }}" class="org-logo-l">
+          </div>
+
+          <div class="org-some-info">
+            <div class="org-name">
+              <h2 class="list-org-head"> {{ org.name }} </h2>
+            </div>
+
+            <div class="org-some-info">
+              <div>
+                {% if org.industry or org.type %}
+                <div class="list">
+                  <span> Size: {{ org.size }} </span>
+                </div>
+
+                <div class="list">
+                  <span> Industry: {{ org.industry }} </span>
+                </div>
+                {% else %}
+                <div class="list">
+                  <span> {{org.description if org.description|length <= 80 else org.description[:80] + '...'}} </span>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="pages">
+    <div class="page-no">
+      <span> page 1 of 500 </span>
+    </div>
+
+    <div class="next-pages">
+      <div class="page-items">
+        <div class="page-list"><a href="#" class="page-link"><</a></div>
+        <div class="page-list"><a href="#" class="page-link">2</a></div>
+        <div class="page-list"><a href="#" class="page-link">3</a></div>
+        <div class="page-list"><a href="#" class="page-link">4</a></div>
+        <div class="page-list"><a href="#" class="page-link">5</a></div>
+        <div class="hidden page-list"><a href="#" class="page-link">6</a></div>
+        <div class="page-list"><a href="#" class="page-link">></a></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock companies %}

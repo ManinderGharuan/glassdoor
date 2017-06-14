@@ -1,0 +1,58 @@
+{% block organization %}
+<div class="company">
+    <div class="org-detail-logo">
+      <img src="{{ org.logo_url }}" class="org-detail-l">
+    </div>
+
+    <div class="organization">
+      <h1> {{ org.name }} </h1>
+
+      <div class="org-info">
+        {% if org.type or org.industry %}
+        <div class="left-list">
+          <div class="list-item">
+            <span class="info">Website: <a href="{{ org.domain.name }}">{{ org.domain.name }}</a></span>
+          </div>
+
+          <div class="list-item">
+            <span class="info">Founded at: {{ org.founded_at.date() if org.founded_at != None else org.founded_at }}</span>
+          </div>
+
+          <div class="list-item">
+            <span class="info">Headquarters: {{ org.headquarters_address }}</span>
+          </div>
+
+          <div class="list-item">
+            <span class="info">Industry: {{ org.industry }}</span>
+          </div>
+        </div>
+
+        <div class="right-info">
+          <div class="list-item">
+            <span class="info">Size: {{ org.size }}</span>
+          </div>
+
+          <div class="list-item">
+            <span class="info">Type: {{ org.type }}</span>
+          </div>
+
+          <div class="list-item">
+            <span class="info">Revenue: {{ org.revenue }}</span>
+          </div>
+
+          <div class="list-item">
+            <span class="info">Competitors: {{ org.competitors }}</span>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="desc-heading">
+      <h2 class="about-head"> About {{ org.name }} </h2>
+    </div>
+    <div class="desc">
+      <span> {{ org.description | safe }} </span>
+    </div>
+</div>
+{% endblock organization %}

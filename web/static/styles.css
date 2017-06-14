@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+.navigator-menu {
+  height: 5%;
+}
+
+.logo {
+  width: 40%;
+  padding: 0px 20px;
+  float: left;
+  font-size: 35px;
+}
+
+.nav-logo {
+  height: 90%;
+  width: 30%;
+}
+
+.nav-logo:hover {
+  cursor: pointer;
+}
+
+.nav-link {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.session {
+  float: right;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+div.hidden {
+  display: none;
+}
+
+.search-container {
+  position: relative;
+  padding: 5px;
+}
+
+.row {
+  margin: auto;
+  padding: 10px;
+  width: 90%;
+}
+
+.heading {
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.input-form {
+  border: 1px solid #eee;
+  max-width: 100%;
+  display: inline-flex;
+}
+
+.search {
+  margin-left: 15px;
+  height: 40px;
+  width: 600px;
+  border: none;
+  outline: none;
+}
+
+.search-button {
+  padding: 12px 50px;
+  border-radius: 0 20px 20px 0;
+}
+
+.search-button:hover {
+  cursor: pointer;
+}
+
+.companies-link {
+  padding-top: 4px;
+  height: 30px;
+  width: 150px;
+  border-radius: 30px;
+  text-align: center;
+}
+
+.all-companies {
+  text-decoration: none;
+}
+
+.companies-link:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+.frame-set {
+  overflow-y: auto;
+  margin: 10px 0;
+  padding: 20px;
+}
+
+.companies {
+  padding: 5px;
+  float: left;
+  width:34%;
+}
+
+.company-items {
+  height: 80%;
+  overflow-y: auto;
+}
+
+.pages {
+  width: 100%;
+  display: flex;
+}
+
+.page-no {
+  padding: 8px;
+  font-size: 12px;
+}
+
+.page-items {
+  padding: 5px;
+}
+
+.page-list {
+  padding: 0 6px;
+  font-size: 20px;
+  border: 1px solid #eee;
+  display: inline-table;
+}
+
+.org-detail-logo {
+  margin: 3% 2%;
+  float: left;
+}
+
+.page-link {
+  text-decoration: none;
+  color: black;
+  font-size: small;
+}
+
+.page-list:hover {
+  cursor: pointer;
+}
+
+.items {
+  padding: 10px;
+  display: flex;
+}
+
+.list-org-head {
+  font-size: 100%;
+}
+
+.list {
+  font-size: 75%;
+}
+
+.org-logo-l {
+  border-radius: 100px;
+  margin: 5px;
+  height: 60px;
+  width: 60px;
+}
+
+.company {
+  height: 80%;
+  overflow: auto;
+  width: 65%;
+  margin: 5px;
+  padding: 10px 30px;
+}
+
+.desc-heading {
+  margin-top: 10%;
+}
+
+.items-list {
+  padding: 5px 10px;
+  margin: 5px;
+}
+
+.org-head-link {
+  color: black;
+  text-decoration: none;
+}
+
+.items-list:hover {
+  cursor: pointer;
+}
+
+.org-some-info {
+  margin-top: 2%;
+  margin-left: 2px;
+}
+
+.top-container {
+  height: 50px;
+  padding: 15px;
+  text-align: center;
+}
+
+.frame-info {
+  font-size: 20px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.organization {
+  width: 90%;
+  margin: 2%;
+}
+
+.list-item {
+  padding: 10px 10px 5px 0;
+}
+
+.org-info {
+  display: flex;
+}
+
+.left-list {
+  width: 50%;
+}
+
+.info {
+  font-size: x-small;
+}
+
+.about-head {
+  padding-left: 35%;
+}
+
+.desc {
+  margin-top: 25px;
+}
+
+.company-desc {
+  overflow: auto;
+  height: 67%;
+}
+
+.footer {
+  position: relative;
+  margin-top: 5px;
+}
+
+.website-info, .info-list, .head {
+  padding: 5px;
+}
+
+.website-info {
+  margin: 0 10%;
+}
+
+.head {
+  font-size: inherit;
+}
+
+.website-logo {
+  float: left;
+}
+
+.logo-img {
+  height: 120px;
+  width: 210px;
+}
+
+.columns {
+  margin: 0 5%;
+  padding: 10px 15px;
+  display: inline-grid;
+}
+
+.footer-list {
+  padding: 1px;
+  list-style: none;
+}
+
+.footer-link {
+  color: black;
+  font-weight: 300;
+  text-decoration: none;
+}

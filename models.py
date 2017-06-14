@@ -1,4 +1,4 @@
-from db import Base, Scraper_Base
+from web.db import Base, Scraper_Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Text

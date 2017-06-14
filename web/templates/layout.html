@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <div class="navigator-menu">
+    </div>
+
+    <div class="search-container">
+      <div class="row">
+        <div class="Column">
+          <h1 class="heading"> Find Companies in Chandigarh.</h1>
+        </div>
+      </div>
+
+      <div class="row search-box">
+        <div class="input-form">
+          <input type="text" class="search" placeholder="Company Name"> <a class="search-button">Search</a>
+        </div>
+      </div>
+    </div>
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer class="footer">
+      <div class="website-info frame-row">
+        <div class="website-logo">
+        </div>
+
+        <div class="about columns">
+          <h2 class="head"> About Us </h2>
+          <div class="info-list">
+            <div class="footer-list"> <a href="#" class="footer-link">Overview</a></div>
+            <div class="footer-list"> <a href="#" class="footer-link"> Mission</a></div>
+            <div class="footer-list"> <a href="#" class="footer-link">Contact</a></div>
+          </div>
+        </div>
+
+        <div class="help-centre columns">
+          <h2 class="head"> Help Centre </h2>
+          <div class="info-list">
+            <div class="footer-list"> <a href="#" class="footer-link">Manage Account</a></div>
+            <div class="footer-list"> <a href="#" class="footer-link">Reset Password</a></div>
+            <div class="footer-list"> <a href="#" class="footer-link">Delete Account</a></div>
+          </div>
+        </div>
+
+        <div class="legal columns">
+          <h2 class="head">Legal</h2>
+          <div class="info-list">
+            <div class="footer-list"> <a href="#" class="footer-link">Privacy Policy</a></div>
+            <div class="footer-list"><a href="#" class="footer-link">Terms</a></div>
+          </div>
+        </div>
+
+        <div class="Contact-with-Us columns">
+          <h2 class="head">Contact</h2>
+          <div class="info-list">
+            <div class="footer-list"><a href="#" class="footer-link">Facebook</a></div>
+            <div class="footer-list"><a href="#" class="footer-link">Twitter</a></div>
+            <div class="footer-list"><a href="#" class="footer-link">Instagram</a></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

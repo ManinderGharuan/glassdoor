@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Chandigarh Companies{% endblock %}
+{% block content %}
+<div class="frame-set">
+  {% include "companies.html" %}
+  {% block companies %} {% endblock companies %}
+  {% include "organization.html" %}
+  {% block organization %} {% endblock organization%}
+</div>
+{% endblock %}
