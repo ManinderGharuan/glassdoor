@@ -2,7 +2,11 @@
 <div class="companies">
   <div class="company-items">
     {% for org in orgs %}
-    <a href="/{{org.id}}" class="org-head-link">
+    {% if search %}
+    <a href="/?keyword={{ search }}&page={{ current_page }}&id={{ org.id }}" class="org-head-link">
+    {% else %}
+    <a href="/?page={{current_page}}&id={{org.id}}" class="org-head-link">
+      {% endif%}
         <div class="items">
           <div class="org-logo">
             <img src="{{ org.logo_url }}" class="org-logo-l">
@@ -38,18 +42,58 @@
 
   <div class="pages">
     <div class="page-no">
-      <span> page 1 of 500 </span>
+      <span> page {{ current_page }} of {{ pages }} </span>
     </div>
 
     <div class="next-pages">
       <div class="page-items">
-        <div class="page-list"><a href="#" class="page-link"><</a></div>
-        <div class="page-list"><a href="#" class="page-link">2</a></div>
-        <div class="page-list"><a href="#" class="page-link">3</a></div>
-        <div class="page-list"><a href="#" class="page-link">4</a></div>
-        <div class="page-list"><a href="#" class="page-link">5</a></div>
-        <div class="hidden page-list"><a href="#" class="page-link">6</a></div>
-        <div class="page-list"><a href="#" class="page-link">></a></div>
+        {% if current_page != 1 %}
+        {% if search %}
+        <a href="/?keyword={{ search }}&page={{current_page - 1}}" class="page-link"><div class="page-list"><</div></a>
+        {% else %}
+        <a href="/?page={{ current_page - 1}}" class="page-link"><div class="page-list"><</div></a>
+        {% endif %}
+        {% endif %}
+
+        {% if current_page + 1 <= pages %}
+        {% if search %}
+        <a href="/?keyword={{ search }}&page={{ current_page + 1}}" class="page-link"><div class="page-list">{{ current_page + 1 }}</div></a>
+        {% else %}
+        <a href="/?page={{ current_page + 1}}" class="page-link"><div class="page-list">{{ current_page + 1 }}</div></a>
+        {% endif %}
+        {% endif %}
+
+        {% if current_page + 2 <= pages %}
+        {% if search %}
+        <a href="/?keyword={{ search }}&page={{ current_page + 2}}" class="page-link"><div class="page-list">{{ current_page + 2 }}</div></a>
+        {% else %}
+        <a href="/?page={{ current_page + 2}}" class="page-link"><div class="page-list">{{ current_page + 2 }}</div></a>
+        {% endif %}
+        {% endif %}
+
+        {% if current_page + 3 <= pages %}
+        {% if search %}
+        <a href="/?keyword={{ search }}&page={{ current_page + 3}}" class="page-link"><div class="page-list">{{ current_page + 3 }}</div></a>
+        {% else %}
+        <a href="/?page={{ current_page + 3}}" class="page-link"><div class="page-list">{{ current_page + 3 }}</div></a>
+        {% endif %}
+        {% endif %}
+
+        {% if current_page + 4 <= pages %}
+        {% if search %}
+        <a href="/?keyword={{ search }}&page={{ current_page + 4}}" class="page-link"><div class="page-list">{{ current_page + 4 }}</div></a>
+        {% else %}
+        <a href="/?page={{ current_page + 4}}" class="page-link"><div class="page-list">{{ current_page + 4 }}</div></a>
+        {% endif %}
+        {% endif %}
+
+        {% if current_page + 1 <= pages %}
+        {% if search %}
+        <a href="/?keyword={{ search }}&page={{ current_page + 1}}" class="page-link"><div class="page-list">></div></a>
+        {% else %}
+        <a href="/?page={{ current_page + 1}}" class="page-link"><div class="page-list">></div></a>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>

@@ -15,9 +15,13 @@
       </div>
 
       <div class="row search-box">
-        <div class="input-form">
-          <input type="text" class="search" placeholder="Company Name"> <a class="search-button">Search</a>
-        </div>
+        <form class="input-form">
+          {% if search %}
+          <input type="text" class="search" value="{{ search }}" name="keyword" onclick="this.select()"> <input class="search-button" value='Search' type="submit">
+          {% else %}
+          <input type="text" class="search" placeholder="Company Name" name="keyword"> <input class="search-button" value='Search' type="submit">
+          {% endif %}
+        </form>
       </div>
     </div>
 
@@ -38,7 +42,7 @@
           </div>
         </div>
 
-        <div class="help-centre columns">
+        <div class="help-centre columns hidden">
           <h2 class="head"> Help Centre </h2>
           <div class="info-list">
             <div class="footer-list"> <a href="#" class="footer-link">Manage Account</a></div>
