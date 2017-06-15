@@ -9,38 +9,6 @@
   height: 5%;
 }
 
-.logo {
-  width: 40%;
-  padding: 0px 20px;
-  float: left;
-  font-size: 35px;
-}
-
-.nav-logo {
-  height: 90%;
-  width: 30%;
-}
-
-.nav-logo:hover {
-  cursor: pointer;
-}
-
-.nav-link {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.session {
-  float: right;
-  margin-right: 10px;
-  padding: 10px;
-}
-
-div.hidden {
-  display: none;
-}
-
 .search-container {
   position: relative;
   padding: 5px;
@@ -83,23 +51,6 @@ div.hidden {
   cursor: pointer;
 }
 
-.companies-link {
-  padding-top: 4px;
-  height: 30px;
-  width: 150px;
-  border-radius: 30px;
-  text-align: center;
-}
-
-.all-companies {
-  text-decoration: none;
-}
-
-.companies-link:hover {
-  cursor: pointer;
-  outline: none;
-}
-
 .frame-set {
   overflow-y: auto;
   margin: 15px 0;
@@ -117,6 +68,36 @@ div.hidden {
   overflow-y: auto;
 }
 
+.org-head-link {
+  color: black;
+  text-decoration: none;
+}
+
+.items {
+  padding: 15px;
+  display: flex;
+}
+
+.org-logo-l {
+  border-radius: 100px;
+  margin: 5px;
+  height: 60px;
+  width: 60px;
+}
+
+.org-some-info {
+  margin-top: 2%;
+  margin-left: 2px;
+}
+
+.list-org-head {
+  font-size: 100%;
+}
+
+.list {
+  font-size: 75%;
+}
+
 .pages {
   margin: 10px 0;
   width: 100%;
@@ -132,6 +113,12 @@ div.hidden {
   padding: 5px;
 }
 
+.page-link {
+  text-decoration: none;
+  color: black;
+  font-size: small;
+}
+
 .page-list {
   padding: 5px 10px;
   font-size: 20px;
@@ -139,39 +126,8 @@ div.hidden {
   display: inline-table;
 }
 
-.org-detail-logo {
-  margin: 3% 2%;
-  float: left;
-}
-
-.page-link {
-  text-decoration: none;
-  color: black;
-  font-size: small;
-}
-
 .page-list:hover {
   cursor: pointer;
-}
-
-.items {
-  padding: 15px;
-  display: flex;
-}
-
-.list-org-head {
-  font-size: 100%;
-}
-
-.list {
-  font-size: 75%;
-}
-
-.org-logo-l {
-  border-radius: 100px;
-  margin: 5px;
-  height: 60px;
-  width: 60px;
 }
 
 .company {
@@ -182,48 +138,14 @@ div.hidden {
   padding: 10px 30px;
 }
 
-.desc-heading {
-  margin-top: 10%;
-}
-
-.items-list {
-  padding: 5px 10px;
-  margin: 5px;
-}
-
-.org-head-link {
-  color: black;
-  text-decoration: none;
-}
-
-.items-list:hover {
-  cursor: pointer;
-}
-
-.org-some-info {
-  margin-top: 2%;
-  margin-left: 2px;
-}
-
-.top-container {
-  height: 50px;
-  padding: 15px;
-  text-align: center;
-}
-
-.frame-info {
-  font-size: 20px;
-  font-weight: 500;
-  font-style: italic;
+.org-detail-logo {
+  margin: 3% 2%;
+  float: left;
 }
 
 .organization {
   width: 90%;
   margin: 2%;
-}
-
-.list-item {
-  padding: 10px 10px 5px 0;
 }
 
 .org-info {
@@ -235,17 +157,20 @@ div.hidden {
   width: 50%;
 }
 
+.list-item {
+  padding: 10px 10px 5px 0;
+}
+
+.desc-heading {
+  margin-top: 10%;
+}
+
 .about-head {
   padding-left: 35%;
 }
 
 .desc {
   margin-top: 25px;
-}
-
-.company-desc {
-  overflow: auto;
-  height: 67%;
 }
 
 .footer {
