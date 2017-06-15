@@ -3,7 +3,6 @@ from requests import get
 from random import choice
 from datetime import datetime
 from urllib.parse import urljoin, urlparse
-from models import Scraper
 
 user_agents = [
     'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3 (FM Scene 4.6.1) ',
@@ -49,7 +48,7 @@ class RootScraper():
         except Exception as error:
             print("Exception in extracting next links: ", error)
 
-    def get_next_links(self, session):
+    def get_next_links(self, session, model):
         """
         Returns next links from scraper database
         """
@@ -57,9 +56,9 @@ class RootScraper():
             while True:
                 urls = []
                 for i in self.whitelist:
-                    urls += session.query(Scraper.url) \
-                                  .filter(Scraper.scraped_at == None,
-                                          Scraper.url.like('%' + i + '%')) \
+                    urls += session.query(model.url) \
+                                  .filter(model.scraped_at == None,
+                                          model.url.like('%' + i + '%')) \
                                   .limit(50).all()
 
                 for url in urls:
@@ -67,19 +66,19 @@ class RootScraper():
         except Exception as error:
             print("Error while fetching url from scraper database: ", error)
 
-    def scrap_in_future(self, session, urls):
+    def scrap_in_future(self, session, model, urls):
         for url in urls:
             path = urlparse(url['url']).path
-            dup = session.query(Scraper).filter(
-                Scraper.url.like('%' + path + '%')).first()
+            dup = session.query(model).filter(
+                model.url.like('%' + path + '%')).first()
 
             if not dup:
-                link = Scraper(**url)
+                link = model(**url)
                 session.add(link)
                 session.commit()
 
-    def onsuccess(self, session, link):
-        scraper = session.query(Scraper).filter_by(url=link).first()
+    def onsuccess(self, session, model, link):
+        scraper = session.query(model).filter_by(url=link).first()
 
         if scraper:
             print("Done with: ", link)

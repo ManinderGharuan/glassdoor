@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 from dateutil.parser import parse
 from web.db import get_scraper_session
 from scrapers.data import JobInfo
+from models import Scraper
 
 
 class GlassdoorScraper(RootScraper):
@@ -163,7 +164,7 @@ class GlassdoorScraper(RootScraper):
 
         while links:
             if self.done_rescrapables:
-                links = self.get_next_links(scraper_session)
+                links = self.get_next_links(scraper_session, Scraper)
             else:
                 self.done_rescrapables = True
 
@@ -184,7 +185,7 @@ class GlassdoorScraper(RootScraper):
 
                 next_links = self.extract_next_links(soup, link)
 
-                self.scrap_in_future(scraper_session, next_links)
-                self.onsuccess(scraper_session, link)
+                self.scrap_in_future(scraper_session, Scraper, next_links)
+                self.onsuccess(scraper_session, Scraper, link)
 
                 yield job_info
