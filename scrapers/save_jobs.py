@@ -1,6 +1,7 @@
 from urllib.parse import urlparse
 from models import (Domain, Organization, Location, Job, Qualification,
-                    JobQualification, AuthorJob, AuthorLocation, Review)
+                    JobQualification, AuthorJob, AuthorLocation, Review,
+                    Industry, OrganizationIndustry)
 
 
 def unduplicate(session, table, data={}):
@@ -33,9 +34,6 @@ def unduplicate(session, table, data={}):
             if not result.type and data.get('type'):
                 result.type = data.get('type')
 
-            if not result.industry and data.get('industry'):
-                result.industry = data.get('industry')
-
             if not result.revenue and data.get('revenue'):
                 result.revenue = data.get('revenue')
 
@@ -44,6 +42,21 @@ def unduplicate(session, table, data={}):
 
             if not result.logo_url and data.get('logo_url'):
                 result.logo_url = data.get('logo_url')
+    elif table_name == 'location':
+        result = query.filter(table.country == data.get('country'),
+                              table.city == data.get('city')).first()
+        if result:
+            if not result.state and data.get('state'):
+                result.state = data.get('state')
+        else:
+            result = query.filter(table.city == data.get('city')).first()
+
+            if result:
+                if not result.state and data.get('state'):
+                    result.state = data.get('state')
+
+                if not result.country and data.get('country'):
+                    result.country = data.get('country')
     elif table_name == 'job':
         path = urlparse(data.get('source')).path
         result = query.filter(table.source.like('%' + path + '%'),
@@ -66,6 +79,10 @@ def save_jobs_in_database(session, job_info):
         domain_data = dict(name=org_fields.get('org_domain'))
         domain = unduplicate(session, Domain, domain_data)
 
+        location_data = dict(country=job_info.country, state=job_info.state,
+                             city=job_info.city)
+        location = unduplicate(session, Location, location_data)
+
         org_data = dict(name=org_fields.get('organization'),
                         description=org_fields.get('org_desc'),
                         domain=domain,
@@ -74,23 +91,27 @@ def save_jobs_in_database(session, job_info):
                         size=org_fields.get('size'),
                         founded_at=org_fields.get('founded_at'),
                         type=org_fields.get('org_type'),
-                        industry=org_fields.get('industry'),
                         revenue=org_fields.get('revenue'),
                         competitors=org_fields.get('competitors'),
-                        logo_url=org_fields.get('org_logo'))
+                        location=location,
+                        logo_url=org_fields.get('org_logo'),
+                        phone_no=org_fields.get('phone_no'))
         organization = unduplicate(session, Organization, org_data)
 
-        if job_info.job_source:
-            location_data = dict(country=job_info.country, state=job_info.state,
-                                 city=job_info.city)
-            location = unduplicate(session, Location, location_data)
+        for indstry in job_info.industries:
+            industry_data = dict(name=indstry)
 
+            industry = unduplicate(session, Industry, industry_data)
+
+            oi_data = dict(organization=organization, industry=industry)
+            unduplicate(session, OrganizationIndustry, oi_data)
+
+        if job_info.job_source:
             job_data = dict(source=job_info.job_source,
                             title=job_info.job_title,
                             created_at=job_info.job_created_at,
                             description=job_info.job_desc,
                             organization=organization,
-                            location=location,
                             last_date=job_info.last_date)
             job = unduplicate(session, Job, job_data)
 

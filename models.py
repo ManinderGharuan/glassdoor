@@ -19,23 +19,11 @@ class Domain(Base):
     name = Column(String(100))
 
 
-class Organization(Base):
-    __tablename__ = 'organization'
+class Industry(Base):
+    __tablename__ = 'industry'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
-    description = Column(Text)
-    domain_id = Column(Integer, ForeignKey('domain.id'))
-    headquarters_address = Column(String(200))
-    size = Column(String(100))
-    founded_at = Column(DateTime)
-    type = Column(String(100))
-    industry = Column(String(100))
-    revenue = Column(String(100))
-    competitors = Column(String(500))
-    logo_url = Column(String(200))
-
-    domain = relationship(Domain)
 
 
 class Location(Base):
@@ -47,6 +35,38 @@ class Location(Base):
     city = Column(String(50))
 
 
+class Organization(Base):
+    __tablename__ = 'organization'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    description = Column(Text)
+    domain_id = Column(Integer, ForeignKey('domain.id'))
+    headquarters_address = Column(String(200))
+    size = Column(String(100))
+    founded_at = Column(DateTime)
+    type = Column(String(100))
+    revenue = Column(String(100))
+    competitors = Column(String(500))
+    location_id = Column(Integer, ForeignKey('location.id'))
+    logo_url = Column(String(200))
+    phone_no = Column(Text)
+
+    domain = relationship(Domain)
+    location = relationship(Location)
+
+
+class OrganizationIndustry(Base):
+    __tablename__ = 'organization_industry'
+
+    id = Column(Integer, primary_key=True)
+    organization_id = Column(Integer, ForeignKey('organization.id'))
+    industry_id = Column(Integer, ForeignKey('industry.id'))
+
+    organization = relationship(Organization)
+    industry = relationship(Industry)
+
+
 class Job(Base):
     __tablename__ = 'job'
 
@@ -56,11 +76,9 @@ class Job(Base):
     created_at = Column(DateTime)
     description = Column(Text)
     organization_id = Column(Integer, ForeignKey('organization.id'))
-    location_id = Column(Integer, ForeignKey('location.id'))
     last_date = Column(DateTime)
 
     organization = relationship(Organization)
-    location = relationship(Location)
 
 
 class Qualification(Base):

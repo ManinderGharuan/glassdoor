@@ -20,7 +20,7 @@ class GlassdoorScraper(RootScraper):
         size = None
         founded_at = None
         org_type = None
-        industry = None
+        industries = []
         revenue = None
         competitors = None
         org_logo = None
@@ -45,7 +45,7 @@ class GlassdoorScraper(RootScraper):
                 org_type = row.find('span').text.strip()
 
             if row.find('label').text.lower() == 'industry':
-                industry = row.find('span').text.strip()
+                industries.append(row.find('span').text.strip())
 
             if row.find('label').text.lower() == 'revenue':
                 revenue = row.find('span').text.strip()
@@ -73,10 +73,9 @@ class GlassdoorScraper(RootScraper):
                           org_desc=org_desc, org_logo=org_logo,
                           headquarters_address=headquarters_address, size=size,
                           founded_at=founded_at, org_type=org_type,
-                          industry=industry, revenue=revenue,
-                          competitors=competitors)
+                          revenue=revenue, competitors=competitors)
 
-        return JobInfo(org_fields)
+        return JobInfo(org_fields, industries=industries)
 
     def _extract_reviews(self, review_link, base_url):
         reviews = []
