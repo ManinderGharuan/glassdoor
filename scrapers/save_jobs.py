@@ -13,14 +13,11 @@ def unduplicate(session, table, data={}):
         result = query.filter(table.name == data.get('name')).first()
 
         if result:
-            if not result.name and data.get('name'):
-                result.name = data.get('name')
-
             if not result.description and data.get('description'):
                 result.description = data.get('description')
 
-            if not result.domain_id and data.get('domain').id:
-                result.domain_id = data.get('domain').id
+            if not result.domain.name and data.get('domain').name:
+                result.domain = data.get('domain')
 
             if not result.headquarters_address and data.get('headquarters_address'):
                 result.headquarters_address = data.get('headquarters_address')
@@ -42,6 +39,12 @@ def unduplicate(session, table, data={}):
 
             if not result.logo_url and data.get('logo_url'):
                 result.logo_url = data.get('logo_url')
+
+            if not result.phone_no and data.get('phone_no'):
+                result.phone_no = data.get('phone_no')
+
+            if data.get('location'):
+                result.location = data.get('location')
     elif table_name == 'location':
         result = query.filter(table.country == data.get('country'),
                               table.city == data.get('city')).first()
