@@ -5,6 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 Scraper_Base = declarative_base()
+User_Base = declarative_base()
 
 
 def get_session():
@@ -27,6 +28,18 @@ def get_scraper_session():
         Scraper_Base.metadata.create_all(engine)
 
     Scraper_Base.metadata.bind = engine
+    DBSession = sessionmaker(bind=engine)
+
+    return DBSession()
+
+
+def get_user_session():
+    engine = create_engine('sqlite:///user.db')
+
+    if not path.exists('user.db'):
+        User_Base.metadata.create_all(engine)
+
+    User_Base.metadata.bind = engine
     DBSession = sessionmaker(bind=engine)
 
     return DBSession()

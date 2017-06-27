@@ -1,7 +1,8 @@
-from web.db import Base, Scraper_Base
+from web.db import Base, Scraper_Base, User_Base
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Text
+from datetime import datetime
 
 
 class Scraper(Scraper_Base):
@@ -127,3 +128,30 @@ class Review(Base):
     organization = relationship(Organization)
     author_job = relationship(AuthorJob)
     author_location = relationship(AuthorLocation)
+
+
+class User(User_Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50))
+    email = Column(String(50), unique=True, nullable=False)
+    password = Column(Text)
+    registered_on = Column(DateTime, default=datetime.utcnow)
+
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return str(self.id)
