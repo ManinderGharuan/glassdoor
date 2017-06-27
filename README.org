@@ -6,6 +6,14 @@
 ** Domain
 - name
 
+** Industry
+- name
+
+** Location
+- country
+- state
+- city
+
 ** Organization
 - name
 - description
@@ -14,14 +22,15 @@
 - size
 - founded_at
 - type
-- industry
 - revenue
 - competitors
+- location_id
+- logo_url
+- phone_no
 
-** Location
-- country
-- state
-- city
+** OrganizationIndustry
+- organization_id
+- industry_id
 
 ** Job
 - source
@@ -29,7 +38,14 @@
 - created_at
 - description
 - organization_id
-- Location_id
+- last_date
+
+** Qualification
+- name
+
+** JobQualification
+- job_id
+- qualification_id
 
 ** AuthorJob
 - job
