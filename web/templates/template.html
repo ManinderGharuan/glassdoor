@@ -1,5 +1,24 @@
 {% extends "layout.html" %}
 {% block title %}Chandigarh Companies{% endblock %}
+{% block search %}
+<div class="search-container">
+  <div class="row">
+    <div class="Column">
+      <h1 class="heading"> Find Companies in Chandigarh.</h1>
+    </div>
+  </div>
+
+  <div class="row search-box">
+    <form class="input-form">
+      {% if search %}
+      <input type="text" class="search" value="{{ search }}" name="keyword" onclick="this.select()"> <input class="search-button" value='Search' type="submit">
+      {% else %}
+      <input type="text" class="search" placeholder="Company Name" name="keyword"> <input class="search-button" value='Search' type="submit">
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}
 {% block content %}
 <div class="frame-set">
   {% include "companies.html" %}

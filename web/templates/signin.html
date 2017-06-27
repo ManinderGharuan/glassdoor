@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="signin-container">
+  <form class="signup-form" method="POST">
+    <h1 class="register-header form">
+      Sign In
+    </h1>
+    <div class="form">
+      <input type="text" class="register-form email-address" placeholder="Email Address" name="email">
+    </div>
+    <div class="form">
+      <input type="password" class="register-form password" placeholder="Password" name="password">
+    </div>
+    <div class="form">
+      <input type="submit" class="register-form submit" value="Log In">
+    </div>
+    <div class="form">
+      <span class="forms"> Don't have an account? <a href="/register" class="forms-link">Sign Up</a></span>
+    </div>
+  </form>
+</div>
+{% endblock %}

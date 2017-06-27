@@ -9,6 +9,17 @@
   height: 5%;
 }
 
+.nav-link {
+  color: black;
+  text-decoration: none;
+}
+
+.session {
+  float: right;
+  margin-right: 10px;
+  padding: 10px;
+}
+
 .search-container {
   position: relative;
   padding: 5px;
@@ -49,6 +60,51 @@
 
 .search-button:hover {
   cursor: pointer;
+}
+
+.register-header {
+  font-size: larger;
+  font-weight: initial;
+}
+
+.signup-container {
+  height: 70%;
+  margin-top: 10px;
+  padding: 0 30%;
+}
+
+.signin-container {
+  height: 60%;
+  margin-top: 100px;
+  padding: 0 30%;
+}
+
+.form {
+  text-align: center;
+  padding: 30px;
+  width: 80%;
+}
+
+.register-form {
+  padding: 10px;
+  height: 40px;
+  width: 100%;
+  background: none;
+  border: 1px solid #eee;
+  outline: none;
+}
+
+.submit:hover {
+  cursor: pointer;
+}
+
+.forms {
+  font-weight: lighter;
+}
+
+.forms-link {
+  text-decoration: none;
+  color: black;
 }
 
 .frame-set {
@@ -182,7 +238,7 @@
 }
 
 .website-info {
-  margin: 2% 22% 5%;
+  margin: 2% 15% 6%;
 }
 
 .head {
