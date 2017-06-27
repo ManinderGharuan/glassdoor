@@ -68,9 +68,14 @@ class RootScraper():
 
     def scrap_in_future(self, session, model, urls):
         for url in urls:
-            path = urlparse(url['url']).path
-            dup = session.query(model).filter(
-                model.url.like('%' + path + '%')).first()
+            url = urlparse(url['url'])
+
+            if url.hostname == 'www.vcsdata.com':
+                dup = session.query(model) \
+                             .filter(model.url == url['url']).first()
+            else:
+                dup = session.query(model).filter(
+                    model.url.like('%' + url.path + '%')).first()
 
             if not dup:
                 link = model(**url)
