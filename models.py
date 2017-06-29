@@ -57,6 +57,16 @@ class Organization(Base):
     location = relationship(Location)
 
 
+class UserOrganization(Base):
+    __tablename__ = 'user_organization'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer)
+    organization_id = Column(Integer, ForeignKey('organization.id'))
+
+    organization = relationship(Organization)
+
+
 class OrganizationIndustry(Base):
     __tablename__ = 'organization_industry'
 

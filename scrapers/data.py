@@ -3,7 +3,7 @@ class JobInfo():
     def __init__(self, org_fields={}, country=None, state=None, city=None,
                  job_source=None, job_title=None, job_created_at=None,
                  job_desc=None, reviews=[], last_date=None,
-                 qualifications=[], pin_code=[], industries=[]):
+                 qualifications=[], pin_code=[], industries=[], user_id=None):
         self.org_fields = org_fields
         self.country = country
         self.state = state
@@ -17,6 +17,7 @@ class JobInfo():
         self.last_date = last_date
         self.qulifications = qualifications
         self.industries = industries
+        self.user_id = user_id
 
     def __repr__(self):
         return "<job_title: {}, organization: {}>"\

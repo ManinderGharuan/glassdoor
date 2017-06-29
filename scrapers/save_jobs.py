@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 from models import (Domain, Organization, Location, Job, Qualification,
                     JobQualification, AuthorJob, AuthorLocation, Review,
-                    Industry, OrganizationIndustry)
+                    Industry, OrganizationIndustry, UserOrganization)
 
 
 def unduplicate(session, table, data={}):
@@ -100,6 +100,11 @@ def save_jobs_in_database(session, job_info):
                         logo_url=org_fields.get('org_logo'),
                         phone_no=org_fields.get('phone_no'))
         organization = unduplicate(session, Organization, org_data)
+
+        if job_info.user_id:
+            user_org_data = dict(user_id=job_info.user_id,
+                                 organization=organization)
+            unduplicate(session, UserOrganization, user_org_data)
 
         for indstry in job_info.industries:
             industry_data = dict(name=indstry)
