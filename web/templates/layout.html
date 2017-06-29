@@ -5,15 +5,25 @@
   </head>
   <body>
     <div class="navigator-menu">
+      {% if request.path != "/post" %}
       <div class="post session">
         <a class="post-link nav-link" href="/post">Add company</a>
       </div>
+      {% endif %}
       {% if current_user.is_authenticated %}
       <div class="logout session">
         <a class="logout-link nav-link" href="/logout">logout</a>
       </div>
       {% endif %}
     </div>
+
+    {% for message in get_flashed_messages() %}
+    {% if message %}
+    <div class="message">
+      <span>{{ message }}</span>
+    </div>
+    {% endif %}
+    {% endfor %}
 
     {% block search %}
     {% endblock search %}
