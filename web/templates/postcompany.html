@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="post-content">
+  <form class="post-form" method="POST">
+    <div class="form post-forms post-company">
+      <label> Company </label>
+      <input class="post-input" type="text" name="post_company" placeholder="Company">
+    </div>
+    <div class="form post-forms domain">
+      <label> Website </label>
+      <input class="post-input" type="text" name="domain" placeholder="Website">
+    </div>
+    <div class="form post-forms description">
+      <label> Description </label>
+      <textarea class="post-input description-area" name="description" placeholder="Description"></textarea>
+    </div>
+    <div class="form post-forms location">
+      <label> Location </label><br><br>
+      <span class="">Chandigarh (INDIA)</span>
+    </div>
+    <div class="form post-forms headquarters-address">
+      <label> Headquarters </label>
+      <input class="post-input" type="text" name="headquarters_address" placeholder="Headquarters">
+    </div>
+    <div class="form post-forms size">
+      <label> Size </label>
+      <input class="post-input" type="text" name="Size" placeholder="Size">
+    </div>
+    <div class="form post-forms founded_at">
+      <label> Founded at </label>
+      <input class="post-input" type="text" name="founded_at" placeholder="Founded At">
+    </div>
+    <div class="form post-forms type">
+      <label> Type </label>
+      <input class="post-input" type="text" name="Type" placeholder="Type">
+    </div>
+    <div class="form post-forms industry">
+      <label> Industry </label>
+      <input class="post-input" type="text" name="industry" placeholder="Industry">
+    </div>
+    <div class="form post-forms revenue">
+      <label> Revenue </label>
+      <input class="post-input" type="text" name="revenue" placeholder="Revenue">
+    </div>
+    <div class="form post-forms competitors">
+      <label> Competitors </label>
+      <input class="post-input" type="text" name="competitors" placeholder="Competitors">
+    </div>
+    <div class="form post-forms phone-no">
+      <label> Phone Number </label>
+      <input class="post-input" type="text" name="phone_number" placeholder="Phone Number">
+    </div>
+    <div class="form post-forms post-button">
+      <input class="post-input post-submit" type="submit" value="Post Company">
+    </div>
+  </form>
+</div>
+{% endblock %}
