@@ -2,16 +2,18 @@
 <div class="companies">
   <div class="company-items">
     {% for org in orgs %}
+    {% if org.name %}
     {% if search %}
     <a href="/?keyword={{ search }}&page={{ current_page }}&id={{ org.id }}" class="org-head-link">
     {% else %}
     <a href="/?page={{current_page}}&id={{org.id}}" class="org-head-link">
       {% endif%}
         <div class="items">
+          {% if org.logo_url %}
           <div class="org-logo">
             <img src="{{ org.logo_url }}" class="org-logo-l">
           </div>
-
+          {% endif %}
           <div class="org-some-info">
             <div class="org-name">
               <h2 class="list-org-head"> {{ org.name }} </h2>
@@ -37,6 +39,7 @@
           </div>
         </div>
     </a>
+    {% endif %}
     {% endfor %}
   </div>
 
@@ -47,7 +50,7 @@
 
     <div class="next-pages">
       <div class="page-items">
-        {% if current_page != 1 %}
+        {% if current_page > 1 %}
         {% if search %}
         <a href="/?keyword={{ search }}&page={{current_page - 1}}" class="page-link"><div class="page-list"><</div></a>
         {% else %}

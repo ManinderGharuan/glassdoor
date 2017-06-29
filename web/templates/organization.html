@@ -1,8 +1,10 @@
 {% block organization %}
 <div class="company">
+    {% if org.logo_url %}
     <div class="org-detail-logo">
       <img src="{{ org.logo_url }}" class="org-detail-l">
     </div>
+    {% endif %}
 
     <div class="organization">
       <h1> {{ org.name }} </h1>
@@ -48,11 +50,13 @@
       </div>
     </div>
 
+    {% if org.description %}
     <div class="desc-heading">
       <h2 class="about-head"> About {{ org.name }} </h2>
     </div>
     <div class="desc">
       <span> {{ org.description | safe }} </span>
     </div>
+    {% endif %}
 </div>
 {% endblock organization %}
