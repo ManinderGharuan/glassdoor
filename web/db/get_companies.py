@@ -54,7 +54,7 @@ def get_companies(session, current_page, org_id, search_keyword):
         Organization.id == org_id,
         OrganizationIndustry.organization_id == Organization.id,
         Industry.id == OrganizationIndustry.industry_id).all()
-    org_from_id = normalize_company(org_from_id)[0]
+    org_from_id = normalize_company(org_from_id)[0] if org_from_id else None
     pages = int(total_orgs / 10)
     pages = pages if pages > 1 else 1
 
