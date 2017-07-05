@@ -31,6 +31,7 @@ def show_mainpage():
     search = request.args.get('keyword')
     data = get_companies(session, current_page, id, search)
 
+    raise Exception('Just for fun')
     return render_template(
         'template.html', orgs=data.get('orgs'), org=data.get('org'),
         current_page=current_page, pages=data.get('pages'), search=search)
